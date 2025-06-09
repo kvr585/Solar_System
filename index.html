@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+
+  <title>Solar_System</title>
+</head>
+
+<body>
+  <!-- Planet dropdown -->
+   
+  <div id="controls">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <select id="planet-select">
+        <option value="">Select a Planet &#8681;</option>
+        <option value="mercury">Mercury</option>
+        <option value="venus">Venus</option>
+        <option value="earth">Earth</option>
+        <option value="mars">Mars</option>
+        <option value="jupiter">Jupiter</option>
+        <option value="saturn">Saturn</option>
+        <option value="uranus">Uranus</option>
+        <option value="neptune">Neptune</option>
+        <option value="sun">Sun</option>
+      </select>
+
+      <button id="toggle-animation" class="btn">Pause</button>
+    </div>
+  </div>
+
+  <!-- Control sliders panel -->
+  <div id="sliders-container">
+    <h3 style="color: white;">Orbital Speed Control</h3>
+    <div id="sliders"></div>
+  </div>
+
+  <!-- Toggle button -->
+  <button id="toggle-controls-btn">⚙️</button>
+
+  <!-- 3D canvas mount -->
+  <div id="container"></div>
+
+  <!-- Main script -->
+  <script type="module" src="./js/main.js"></script>
+  <script>
+    // Pause/resume logic
+    let isPaused = false;
+    const pauseBtn = document.getElementById('toggle-animation');
+
+    pauseBtn.addEventListener('click', () => {
+      isPaused = !isPaused;
+      pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
+
+      // Communicate to main.js via global flag
+      window.__isPaused = isPaused;
+    });
+  </script>
+
+
+  <!-- Toggle logic -->
+  <script>
+    const toggleBtn = document.getElementById('toggle-controls-btn');
+    const slidersContainer = document.getElementById('sliders-container');
+
+    toggleBtn.addEventListener('click', () => {
+      slidersContainer.classList.toggle('expanded');
+    });
+  </script>
+  <script>
+    // Planet dropdown redirect
+    document.getElementById('planet-select').addEventListener('change', (e) => {
+      const planet = e.target.value;
+      if (planet) {
+        window.location.href = `planet.html?name=${planet}`;
+      }
+    });
+  </script>
+
+</body>
+
+</html>
